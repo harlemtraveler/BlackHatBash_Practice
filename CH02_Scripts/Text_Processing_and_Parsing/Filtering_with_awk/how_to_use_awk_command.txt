@@ -1,0 +1,27 @@
+Filtering with awk
+
+The awk command is a data processing and extraction Swiss Army knife.
+You can use it to identify and return specific fields from a file.
+
+# The "$1" represents the first field of every line in the "log.txt" file.
+# By default, awk treats spaces or tabs as separators or delimeters.
+awk '{print $1}' log.txt
+
+# Additionql fields can be retrieved similarly.
+# The $1, $2, $3 returns the first, second, and third fields of every line
+awk '{print $1,$2,$3}' log.txt
+
+# Print the first and last fields simultaneously.
+# In this case, "NF" represents the last field of every line.
+awk '{print $1,$NF}' log.txt
+
+# We can change the default delimeter to commas using the "-F" flag to process CSV files.
+awk -F',' '{print $1}' example_csv.txt
+
+# Print the first 10 lines of a file. 
+# The "NR" represents the total number of records.
+awk 'NR < 10' log.txt
+
+# Combine grep with awk.
+# Find the first 10 line in the file containing the IP address and print the HTTP paths requested by this IP.
+grep "42.236.10.117" log.txt | awk '{print }'
