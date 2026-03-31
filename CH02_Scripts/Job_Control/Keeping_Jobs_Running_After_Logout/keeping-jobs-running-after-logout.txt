@@ -1,0 +1,13 @@
+Keeping Jobs Running After Logout
+
+Whether you send a job to the background or are running a job in the foreground, the process won’t survive if you close the terminal or log out.
+If you close the terminal, the process will receive a SIGHUP signal and terminate.
+
+What if we want to keep running a script in the background even after we’ve logged out of the terminal window or closed it?
+To do so, we could start a script or command with the nohup (no hangup) command prepended.
+
+The nohup command will create a file named nohup.out with standard output stream data.
+Make sure you delete this file if you don’t want it on the filesystem.
+
+# Execute script with "nohup" command prepended and send to background using "&":
+nohup ./my_script.sh &
