@@ -1,0 +1,17 @@
+Shortening Commands with Aliases
+
+You may find yourself frequently using long Linux commands.
+You can use "aliases" to map the command to a shorter custom name.
+Aliases aren't permanent, but could be.
+
+# For example, an Nmap command with special parameters to scan all 65,535 ports on an IP:
+nmap -vv -T4 -p- -sV --max-retries 5 localhost
+
+# To make it easier, we can assign the command to the alias "quicknmap":
+alias quicknmap="nmap -vv -T4 -p- -sV --max-retries 5 localhost"
+
+# Now we can run the aliased command by using the name of the alias:
+quicknmap
+
+# You can even assign an alias to your own scripts:
+alias helloworld="bash ~/scripts/helloworld.sh"
