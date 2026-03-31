@@ -1,0 +1,23 @@
+Customizing the ~/.bashrc Profile
+
+We can use the ~/.bashrc file to load functions, variables, and just about any other custom code into bash sessions.
+We can create variables containing information we frequently access, such as vulnerable IP addresses.
+Just append at the end of the ~/.bashrc file.
+
+
+# For example, variables for IP addresses and an aliased nmap command:
+VULN_HOST=1.0.0.22
+VULN_ROUTER=10.0.0.254
+
+alias quicknmap="nmap -vv -T4 -p- -sV --max-retries 5 localhost"
+
+
+# Next time you open a terminal, you'll have access to these values
+# To access immediately without closing the Terminal, reimport wit the source command:
+source ~/.bashrc
+
+
+# Verify results:
+echo ${VULN_HOST}
+
+echo ${VULN_ROUTER}

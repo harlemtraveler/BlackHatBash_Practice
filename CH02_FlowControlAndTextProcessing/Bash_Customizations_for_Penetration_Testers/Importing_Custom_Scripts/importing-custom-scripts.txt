@@ -1,0 +1,16 @@
+Importing Custom Scripts
+
+Another way to introduce changes to your bash session is to create a 
+dedicated script that contains pentesting-related customizations and 
+then have the ~/.bashrc file import it by using the source command. 
+
+To achieve this, create a ~/.pentest.sh file containing your new 
+logic and then make a one-time modification to ~/.bashrc to import 
+pentest.sh at the end of the file:
+
+
+# Import custom script (e.g., ~/.pentest.sh) into ~/.bashrc using the source command:
+source ~/.pentest
+
+# Alternatively, you can also source a bash file by using the . (dot) command:
+. ~/.pentest.sh
