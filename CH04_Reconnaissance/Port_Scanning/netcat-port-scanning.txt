@@ -1,0 +1,8 @@
+Port Scanning with Netcat
+
+Netcat is often used when you want to check the state of a single port,
+such as if whether it's open or closed.
+However, Netcat does enable us to scan multiple ports with a single command.
+
+# Run Netcat to scan IP 172.16.10.11 with the "-z" (zero I/O) flag and "-v" (verbose) flag, on ports 1 to 1024:
+nc -zv 172.16.10.11 1-1024

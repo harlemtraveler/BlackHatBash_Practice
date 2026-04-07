@@ -1,0 +1,15 @@
+Port Scanning with Rustscan
+
+
+# Use Rustscan to scan a single IP address or an address range using the "-a" (address) argument":
+rustscan -a 172.16.10.0/24
+
+# Reduce output to only show scan info using "-g" (greppable).
+# You can also limit scan to a specified range using the "-r" (range) option:
+rustscan -g -a 172.16.10.0/24 -r 1-1024
+
+# Clean up rustscan output by using awk, specifying "->" as a delimeter and returning the 1st and 2nd fields:
+rustscan -g -a 172.16.10.0/24 -r 1-1024 | awk -F'->' '{print $1,$2}'
+
+# Clean output further by removing the braces ([]) around the port number, use the "tr" command with the "-d" (delete) argument:
+rustscan -g -a 172.16.10.0/24 -r 1-1024 | awk -F'->' '{print $1,$2}' | tr -d '[]'

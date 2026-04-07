@@ -1,0 +1,27 @@
+Port Scanning with Nmap
+
+Nmap allows you to perform robust port scanning on one or multiple targets.
+If nmap isn't provided any special options on the command line, it uses the following defaults:
+- Perform a SYN scan
+- Scan the top 1000 ports
+- Scan only TCP ports
+
+
+# Port scan with nmap by passing a domain:
+nmap scanme.nmap.org
+
+# Port scan with nmap with an IP address:
+nmap 172.16.10.1
+
+# Scan multiple targets (e.g., "localhost" and "scanme.nmap.org") by passing each in the command:
+nmap localhost scanme.nmap.org
+
+# Scan targets listed in a file using the -iL option.
+# Here, we also use the -sV option to detect version and services on each port:
+nmap -sV -iL 172-16-10-hosts.txt
+
+# Filter nmap output using grep. Here we filtered for lines containing the string "open":
+nmap -sV -iL 172-16-10-hosts.txt | grep open
+
+# Nmap also allows you to use the "--open" flag to show only the open ports that were found:
+nmap -sV -iL 172-16-10-hosts.txt --open
