@@ -13,3 +13,6 @@ while read -r line; do
 		echo "${ip}" >> "${file}"
 	fi
 done <<< "${RESULT}"
+
+# Extra Challenge - create one-liner bash script that extracts the open ports from XML output:
+# nmap -iL target-hosts.txt --open -oX - | grep "port protocol=\"tcp\"" | awk '{print $3}' | awk -F'><' '{print $1}' | awk -F'=' '{print $2}' | tr -d '"'
