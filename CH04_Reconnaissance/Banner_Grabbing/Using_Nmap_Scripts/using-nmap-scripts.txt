@@ -1,0 +1,34 @@
+Using Nmap Scripts
+
+Nmap is not just a port scanner. It can also act as a full vulnerability assesment tool.
+The Nmap Scripting Engine (NSE) allows you to write scripts in the "Lua" language to 
+extend its capabilities. Nmap comes preinstalled with some Lua scripts.
+These Lau scripts can be viewed in the "/usr/share/nmap/scripts" directory.
+Nmap scripts can be invoked by using the "--scripts=" option.
+
+
+# List the preinstalled Nmap scripts.
+ls -l /usr/share/nmap/scripts
+
+# Use the "banner.nse" script to grab a host banner.
+nmap -sV --script=banner.nse -iL target-host-file.txt
+
+...
+
+Nmap scan report for 172.16.10.12
+--snip--
+PORT   STATE SERVICE VERSION
+80/tcp open  http    Apache httpd 2.4.54 ((Debian))
+|_http-server-header: Apache/2.4.54 (Debian)
+--snip--
+
+
+# The banner grab script use special chars (|_). Filter to extract info.
+nmap -sV --script=banner.nse -iL target-host-file.txt | grep "|_banner\||_http-server-header"
+
+...
+
+PORT     STATE SERVICE          VERSION
+8081/tcp open  blackice-icecap?
+| fingerprint-strings:
+--snip--

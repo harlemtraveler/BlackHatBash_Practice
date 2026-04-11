@@ -1,0 +1,74 @@
+Analyzing Websites and JSON
+
+WhatWeb allows us to see the services running on web applications.
+By default, WhatWeb's output is printed to standard output (stdout).
+The output is seperated by commas and spaces (, ).
+This output is easy to parse with tools like awk and sed.
+
+# Scan for services running on a host
+whatweb 172.16.10.10:8081
+
+...
+
+http://172.16.10.10:8081 [200 OK] Country[RESERVED][ZZ], HTML5, HTTPServer[Werkzeug/3.0.1 Python/3.12.3], IP[172.16.10.10], Python[3.12.3], Title[Menu], Werkzeug[3.0.1], X-UA-Compatible[ie=edge]
+
+
+
+WhatWeb can format output into JSON with the "--log-json" parameter.
+We can use the "jq" tool to parse the JSON output.
+The "--log-json" parameter expects a filename passed as its value.
+However, we can force output to stdout by passing the /dev/stdout file.
+
+# Format whatweb output into JSON
+whatweb 172.16.10.10:8081 --log-json=/dev/stdout --quiet | jq
+
+...
+
+[
+  {
+    "target": "http://172.16.10.10:8081",
+    "http_status": 200,
+    "request_config": {
+      "headers": {
+        "User-Agent": "WhatWeb/0.6.3"
+      }
+    },
+    "plugins": {
+      "Country": {
+        "string": [
+          "RESERVED"
+        ],
+        "module": [
+          "ZZ"
+        ]
+      },
+      "HTML5": {},
+      "HTTPServer": {
+        "string": [
+          "Werkzeug/3.0.1 Python/3.12.3"
+        ]
+      },
+      "IP": {
+        "string": [
+          "172.16.10.10"
+        ]
+      },
+      .....
+
+
+# Parse out specific info with jq, such as the HTTPServer
+whatweb 172.16.10.10:8081 --log-json=/dev/stdout --quiet | jq '.[0].plugins.HTTPServer.string[0]'
+
+...
+
+"Werkzeug/3.0.1 Python/3.12.3"
+
+
+
+# Grab the IP instead
+whatweb 172.16.10.10:8081 --log-json=/dev/stdout --quiet | jq '.[0].plugins.IP.string[0]'
+
+...
+
+"172.16.10.10"
+

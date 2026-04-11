@@ -1,0 +1,25 @@
+Using Nmap Operating System Scan
+
+Nmap can guess a target server's operating system by using TCP/IP fingerprinting.
+The technique Nmap uses is to identify the OS's implementation the TCP/IP stack
+by crafting packets in various ways and analyzing the returned responses.
+Each operating system (e.g., Linux, Mac, Windows) implements TCP/IP slightly different.
+Nmap analyzes these subtle differences to identify the system.
+
+You can run a Operating System detection scan by using the "-O" flag.
+***NOTE: This particular scan requires sudo (root) privileges!
+
+# Run the OS detection scan with the "-O" flag
+sudo nmap -O -iL target-hosts.txt
+
+...
+
+--snip--
+21/tcp open  ftp
+80/tcp open  http
+MAC Address: 02:42:AC:10:0A:0B (Unknown)
+Device type: general purpose
+Running: Linux 4.X|5.X
+OS CPE: cpe:/o:linux:linux_kernel:4 cpe:/o:linux:linux_kernel:5
+OS details: Linux 4.15 - 5.6
+Network Distance: 1 hop
